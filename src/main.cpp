@@ -21,8 +21,8 @@ int main(int argc, char* argv[]) {
     std::signal(SIGINT, signalHandler);
     std::signal(SIGTERM, signalHandler);
     
-    // Default OpenFlow port
-    uint16_t port = 6653;
+    // OpenFlow port I use in my config is 6633
+    uint16_t port = 6633;
     
     // Parse command line arguments
     for (int i = 1; i < argc; i++) {

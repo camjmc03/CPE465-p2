@@ -212,7 +212,7 @@ void OpenFlowController::processMessages(int client_socket, uint64_t datapath_id
             
             case OF_PACKET_IN: {
                 std::cout << "PACKET_IN event received from switch 0x" << std::hex << datapath_id << std::dec << std::endl;
-                // Process PACKET_IN message (for Milestone 1, we just report it)
+                // Process PACKET_IN message (for Milestone 1, just report it)
                 break;
             }
             
