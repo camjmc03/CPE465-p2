@@ -150,8 +150,8 @@ bool OFPortStatusMessage::receive(int socket, const OFMessageHeader& header) {
     port_no = ntohl(*(uint32_t*)(buffer + 8));
     
     // Extract MAC address (6 bytes)
-    char mac[18];
-    sprintf(mac, "%02x:%02x:%02x:%02x:%02x:%02x", 
+    char mac[18]; // MAC address format: xx:xx:xx:xx:xx:xx (17 chars + null terminator)
+    snprintf(mac, sizeof(mac), "%02x:%02x:%02x:%02x:%02x:%02x", 
             buffer[16], buffer[17], buffer[18], buffer[19], buffer[20], buffer[21]);
     hw_addr = mac;
     

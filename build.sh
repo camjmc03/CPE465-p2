@@ -1,4 +1,4 @@
-# executable created by cmake
+# executable created by make
 EXECUTABLE="build/of_controller"
 
 # ensure dependencies are installed
@@ -21,11 +21,6 @@ fi
 # git
 if ! [ -x "$(command -v git)" ]; then
     echo "Error: git is not installed." >&2
-    exit 1
-fi
-# pcap
-if ! [ -x "$(command -v pcap-config)" ]; then
-    echo "Error: pcap is not installed." >&2
     exit 1
 fi
 
@@ -62,7 +57,7 @@ make -j$(sysctl -n hw.ncpu)
 cd ..
 echo "creating run.sh"
 echo "#!/bin/bash" > run.sh
-echo "./build/of_controller \"\$@\"" >> run.sh
+echo "./$EXECUTABLE \"\$@\"" >> run.sh
 chmod +x run.sh
 echo "Build complete"
 echo "----------------------------------------"
