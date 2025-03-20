@@ -3,11 +3,14 @@
 #include <csignal>
 #include <chrono>
 #include <thread>
+#include <atomic>
 
 OpenFlowController* controller = nullptr;
+std::atomic<bool> keep_running(true);
 
 void signalHandler(int signum) {
     std::cout << "Signal " << signum << " received, shutting down..." << std::endl;
+    keep_running = false;
     if (controller) {
         controller->stop();
     }
@@ -54,8 +57,8 @@ int main(int argc, char* argv[]) {
     
     std::cout << "OpenFlow controller is running. Press Ctrl+C to exit." << std::endl;
     
-    // Wait for controller to be stopped
-    while (controller->getSwitchCount() > 0 || true) {
+    // Wait for controller to be stopped or Ctrl+C
+    while (keep_running) {
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
     
@@ -63,5 +66,6 @@ int main(int argc, char* argv[]) {
     delete controller;
     controller = nullptr;
     
+    std::cout << "Controller has been shut down." << std::endl;
     return 0;
 }
